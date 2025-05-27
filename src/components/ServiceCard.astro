@@ -1,0 +1,138 @@
+---
+import { Building, Wrench, Settings, Cog } from "lucide-react"
+
+interface Props {
+	title: string
+	items: string[]
+	isLarge?: boolean
+	type: "wrench" | "building" | "settings" | "cog"
+	index: number
+	imageUrl: string
+}
+
+const { type, items, title, isLarge = false, index, imageUrl } = Astro.props
+
+// Define colors based on card type
+const cardColors = {
+	wrench: {
+		overlay: "bg-blue-900/50",
+		text: "text-white",
+		bullet: "text-blue-300",
+		accent: "from-blue-500/20 to-blue-700/20",
+	},
+	building: {
+		overlay: "bg-amber-900/50",
+		text: "text-white",
+		bullet: "text-amber-300",
+		accent: "from-amber-500/20 to-amber-700/20",
+	},
+	settings: {
+		overlay: "bg-rose-900/50",
+		text: "text-white",
+		bullet: "text-rose-300",
+		accent: "from-rose-500/20 to-rose-700/20",
+	},
+	cog: {
+		overlay: "bg-emerald-900/50",
+		text: "text-white",
+		bullet: "text-emerald-300",
+		accent: "from-emerald-500/20 to-emerald-700/20",
+	},
+}
+
+const colors = cardColors[type] || cardColors.wrench
+
+// Get first 3 items for non-large cards
+const displayItems = isLarge ? items : items.slice(0, 3)
+---
+
+<article class="relative h-full w-full rounded-2xl overflow-hidden group">
+	{/* Background Image */}
+	<div class="absolute inset-0">
+		<img
+			src={imageUrl}
+			alt={title}
+			class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+			loading={index < 2 ? "eager" : "lazy"}
+		/>
+		<div
+			class={`absolute inset-0 ${colors.overlay} mix-blend-multiply transition-opacity duration-700 group-hover:opacity-90`}
+		>
+		</div>
+		<div class={`absolute inset-0 bg-gradient-to-br ${colors.accent} opacity-50`}></div>
+	</div>
+
+	{/* Content */}
+	<div class="relative z-10 h-full flex flex-col p-6 md:p-8 text-white">
+		<div class="flex-1 flex flex-col">
+			{/* Icon and Title */}
+			<div class="flex items-center mb-4">
+				<div class="bg-white/20 backdrop-blur-sm rounded-lg p-2 mr-4">
+					{
+						type === "wrench" ? (
+							<Wrench className="h-5 w-5 text-white" />
+						) : type === "building" ? (
+							<Building className="h-5 w-5 text-white" />
+						) : type === "settings" ? (
+							<Settings className="h-5 w-5 text-white" />
+						) : (
+							<Cog className="h-5 w-5 text-white" />
+						)
+					}
+				</div>
+				<h3 class={`${colors.text} text-xl md:text-2xl font-bold`}>{title}</h3>
+			</div>
+
+			{/* Service Items */}
+			<ul class="space-y-2 mt-2">
+				{
+					displayItems.map((item, idx) => (
+						<li
+							class="flex items-start opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+							style={`transition-delay: ${idx * 50}ms`}
+						>
+							<span class={`${colors.bullet} mt-1 mr-2 font-bold`}>•</span>
+							<span class="text-sm md:text-base">{item}</span>
+						</li>
+					))
+				}
+			</ul>
+
+			{/* View More for small cards */}
+			{
+				!isLarge && items.length > 3 && (
+					<div class="mt-auto pt-4 text-sm text-white/80 group-hover:text-white transition-colors">
+						+{items.length - 3} más servicios
+					</div>
+				)
+			}
+		</div>
+
+		{/* Hover effect */}
+		<div
+			class="absolute inset-0 border-2 border-transparent group-hover:border-white/30 rounded-2xl transition-all duration-500 pointer-events-none"
+		>
+		</div>
+	</div>
+
+	{/* Hover shine effect */}
+	<div
+		class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shine"
+	>
+	</div>
+</article>
+
+<style>
+	@keyframes shine {
+		0% {
+			transform: translateX(-100%) rotate(15deg);
+		}
+		100% {
+			transform: translateX(100%) rotate(15deg);
+		}
+	}
+
+	.group:hover .animate-shine {
+		animation: shine 1.5s ease-in-out;
+	}
+</style>

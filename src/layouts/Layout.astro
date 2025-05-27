@@ -1,0 +1,78 @@
+---
+import { ClientRouter } from "astro:transitions"
+import { getLangFromUrl } from "@/i18n/utils"
+import "@fontsource-variable/montserrat"
+
+import Footer from "../components/Footer.astro"
+import NavBar from "@/components/Navbar"
+
+import "../styles/animations.css"
+import "../styles/global.css"
+
+interface Props {
+	title: string
+	lang: string
+	description: string
+}
+
+const lang = getLangFromUrl(Astro.url)
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<ClientRouter />
+	</head>
+	<body
+		class="bg-white text-gray-900 font-default dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col"
+	>
+		<NavBar client:load lang={lang} />
+		<main class="flex-grow">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<script>
+	import { animate, inView } from "motion"
+
+	inView(
+		'[data-animate="fade-in-up"]',
+		(el) => {
+			animate(el, { opacity: 1, y: [40, 0] }, { duration: 0.6 })
+		},
+		{ margin: "-30%" }
+	)
+
+	inView(
+		'[data-animate="slide-left"]',
+		(el) => {
+			animate(el, { opacity: 1, x: [-70, 0] }, { duration: 0.9 })
+		},
+		{ margin: "-30%" }
+	)
+
+	inView(
+		'[data-animate="slide-right"]',
+		(el) => {
+			animate(el, { opacity: 1, x: [70, 0] }, { duration: 0.9 })
+		},
+		{ margin: "-30%" }
+	)
+
+	const yearCounter = document.getElementById("year-counter") as HTMLElement
+
+	animate(0, 25, {
+		duration: 4,
+		ease: "circOut",
+		onUpdate: (latest) => (yearCounter.innerHTML = Math.round(latest).toString() + "+"),
+	})
+</script>

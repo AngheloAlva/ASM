@@ -1,0 +1,62 @@
+---
+import { Building } from "lucide-react"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+const clients = [
+	"ALCANTARA - APOQUINDO",
+	"ALTO EL PLOMO",
+	"APOQUINDO 3500",
+	"APOQUINDO 3600",
+	"BANCO ITAU",
+	"CENTRO MANQUEHUE",
+	"CERRO EL PLOMO",
+	"CLAUDIO ROMERO",
+	"LAS INDUSTRIAS",
+	"PLAZA SANTIAGO",
+	"EMBAJADA HOLANDA",
+	"ISIDORA MAGDALENA",
+	"ISIDORA EL BOSQUE",
+	"LEONARDO GUZMAN",
+	"MAGDALENA NORTE",
+	"MANANTIALES",
+	"MANQUEHUE NORTE",
+	"METROPOLIS",
+	"PARQUE ANDINO",
+	"PARQUE TITANIUM",
+	"TORRE CENTENARIO",
+	"TORRE LAS CONDES",
+	"TORRE CONDEL",
+	"TITANIUM LA PORTADA",
+]
+---
+
+<section id="clients" class="bg-white py-20 max-w-screen-xl mx-auto">
+	<div class="section-container">
+		<div id="clients-title" class="mb-16 text-center">
+			<h2 class="text-asm-blue mb-4 text-3xl font-bold md:text-4xl">
+				{t("clients.title")}
+			</h2>
+			<p class="mx-auto max-w-2xl text-lg text-gray-600">{t("clients.subtitle")}</p>
+			<div class="bg-asm-orange mx-auto mt-6 h-1 w-24"></div>
+		</div>
+
+		<div class="from-asm-blue/10 to-asm-blue/5 rounded-xl bg-gradient-to-r px-4 py-8">
+			<div
+				id="container"
+				class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+			>
+				{
+					clients.map((client, index) => (
+						<div class="flex h-full flex-col hover:scale-105 transition-all text-gray-800 hover:text-asm-orange items-center justify-center rounded-lg bg-white p-4 text-center shadow-sm  hover:shadow-md item">
+							<Building className="text-asm-blue mb-2 h-6 w-6 opacity-70" />
+							<span class="text-sm font-medium ">{client}</span>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,98 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+import ServiceCard from "./ServiceCard.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+
+interface ServiceItem {
+	title: string
+	items: string[]
+	type: "wrench" | "building" | "settings" | "cog"
+	isLarge?: boolean
+}
+
+const services: ServiceItem[] = [
+	{
+		title: t("services.general.title") as string,
+		items: t("services.general.items") as string[],
+		type: "wrench",
+		isLarge: true,
+	},
+	{
+		title: t("services.height.title") as string,
+		items: t("services.height.items") as string[],
+		type: "building",
+	},
+	{
+		title: t("services.electrical.title") as string,
+		items: t("services.electrical.items") as string[],
+		type: "settings",
+	},
+	{
+		title: t("services.pumps.title") as string,
+		items: t("services.pumps.items") as string[],
+		type: "cog",
+	},
+]
+---
+
+<section class="bg-white py-16 px-4 sm:px-6 lg:px-8" id="services">
+	<div class="max-w-screen-xl mx-auto">
+		<div class="text-center mb-16">
+			<h2 class="text-gray-900 mb-4 text-3xl font-bold md:text-4xl lg:text-5xl">
+				{t("services.title")}
+			</h2>
+			<div class="bg-asm-orange mx-auto h-1.5 w-32 rounded-full"></div>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full mx-auto">
+			{/* First Row */}
+			<div class="md:col-span-2">
+				<ServiceCard
+					title={services[0].title}
+					items={services[0].items}
+					type={services[0].type}
+					isLarge={true}
+					index={0}
+					imageUrl="https://images.unsplash.com/photo-1739010187064-b2e983be45bb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				/>
+			</div>
+
+			<div class="">
+				<ServiceCard
+					title={services[1].title}
+					items={services[1].items}
+					type={services[1].type}
+					isLarge={false}
+					index={1}
+					imageUrl="https://images.unsplash.com/photo-1684857854165-cf7bc1648479?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				/>
+			</div>
+
+			{/* Second Row */}
+			<div class="">
+				<ServiceCard
+					title={services[2].title}
+					items={services[2].items}
+					type={services[2].type}
+					isLarge={false}
+					index={2}
+					imageUrl="https://images.unsplash.com/photo-1622534376374-fe4480328daa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				/>
+			</div>
+
+			<div class="md:col-span-2">
+				<ServiceCard
+					title={services[3].title}
+					items={services[3].items}
+					type={services[3].type}
+					isLarge={false}
+					index={3}
+					imageUrl="https://images.unsplash.com/photo-1652715564391-38cc4475b7f5?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

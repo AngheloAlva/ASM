@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+	:root {
+		--asm-blue: #2c3e50;
+		--asm-gray: #95a5a6;
+		--asm-orange: #e67e22;
+	}
+
+	.dark {
+		--asm-gray: #768692;
+		--asm-orange: #e67e22;
+	}
+}
+
+@theme {
+	--color-asm-blue: var(--asm-blue);
+	--color-asm-gray: var(--asm-gray);
+	--color-asm-orange: var(--asm-orange);
+	--font-default: "Montserrat Variable", sans-serif;
+}

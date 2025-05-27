@@ -1,0 +1,84 @@
+---
+import { Building, Wrench, Globe } from "lucide-react"
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
+<section id="about" class="bg-white py-20 max-w-screen-xl px-4 mx-auto">
+	<div class="section-container">
+		<div class="mb-12 text-center opacity-0" data-animate="fade-in-up">
+			<h2 class="text-asm-blue mb-4 text-3xl font-bold md:text-4xl">{t("about.title")}</h2>
+
+			<p class="text-asm-orange text-xl font-semibold">
+				<span id="year-counter" class="text-2xl">0</span>
+				{t("about.experience")}
+			</p>
+		</div>
+
+		<div class="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+			<div
+				class="relative overflow-hidden opacity-0 rounded-lg shadow-xl"
+				data-animate="slide-left"
+			>
+				<img
+					src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&q=80"
+					alt="ASM SPA Building Maintenance"
+					class="h-auto w-full object-cover"
+				/>
+				<div
+					class="from-asm-blue/80 absolute inset-0 flex items-end bg-gradient-to-t to-transparent"
+				>
+					<div class="p-6 text-white">
+						<h3 class="text-xl font-bold">25+ {t("about.experience")}</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="space-y-6 opacity-0" data-animate="fade-in-up">
+				<p class="text-lg leading-relaxed text-gray-700">
+					{t("about.description")}
+				</p>
+
+				<div class="mt-8 grid gap-6">
+					<div class="flex items-start space-x-4">
+						<div class="bg-asm-blue rounded-full p-3">
+							<Globe className="h-6 w-6 text-white" />
+						</div>
+						<div>
+							<h4 class="text-asm-blue text-lg font-medium">
+								{t("about.coverageTitle")}
+							</h4>
+							<p class="text-gray-600">{t("about.coverage")}</p>
+						</div>
+					</div>
+
+					<div class="flex items-start space-x-4">
+						<div class="bg-asm-blue rounded-full p-3">
+							<Wrench className="h-6 w-6 text-white" />
+						</div>
+						<div>
+							<h4 class="text-asm-blue text-lg font-medium">
+								{t("about.teamTitle")}
+							</h4>
+							<p class="text-gray-600">{t("about.team")}</p>
+						</div>
+					</div>
+
+					<div class="flex items-start space-x-4">
+						<div class="bg-asm-blue rounded-full p-3">
+							<Building className="h-6 w-6 text-white" />
+						</div>
+						<div>
+							<h4 class="text-asm-blue text-lg font-medium">
+								{t("about.missionTitle")}
+							</h4>
+							<p class="text-gray-600">{t("about.mission")}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

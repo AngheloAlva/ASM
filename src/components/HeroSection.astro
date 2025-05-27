@@ -1,0 +1,58 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import Button from "./Button.astro"
+
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
+---
+
+<section
+	class="relative flex min-h-screen items-center bg-gray-900 bg-cover bg-center"
+	style={{
+		backgroundImage: `linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.75)), 
+                         url('https://images.unsplash.com/photo-1496307653780-42ee777d4833?auto=format&q=80')`,
+		backgroundAttachment: "fixed",
+	}}
+>
+	<div class="container mx-auto px-4 py-32">
+		<div class="mx-auto max-w-3xl text-center text-white">
+			<h1 class="fade-in mb-6 text-4xl font-bold md:text-5xl lg:text-6xl">ASM SPA</h1>
+
+			<h2 class="fade-in text-2xl font-medium md:text-3xl">
+				{t("hero.title")}
+			</h2>
+
+			<p class="fade-in mb-10 text-lg md:text-xl text-white/80">
+				{t("hero.subtitle")}
+			</p>
+
+			<div class="flex gap-3 w-full items-center justify-center">
+				<a href="#services">
+					<Button text={t("hero.cta") as string} />
+				</a>
+
+				<a href="#contact">
+					<Button text={t("hero.cta2") as string} className="bg-asm-orange" />
+				</a>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="from-white absolute right-0 bottom-0 left-0 h-20 bg-gradient-to-t to-transparent"></div>
+
+<script>
+	import { animate, hover } from "motion"
+
+	const elements = document.querySelectorAll(".fade-in")
+
+	elements.forEach((el, i) => {
+		animate(el, { opacity: [0, 1], y: [20, 0] }, { duration: 0.6, delay: i * 0.2 })
+	})
+
+	hover("button", (el) => {
+		animate(el, { scale: 1.1 }, { duration: 0.2 })
+
+		return () => animate(el, { scale: 1 }, { duration: 0.2 })
+	})
+</script>
