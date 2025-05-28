@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
-import { getLangFromUrl, useTranslations } from "@/i18n/utils"
+import { useTranslations } from "@/i18n/utils"
 import type { ui } from "@/i18n/ui"
 
 const ContactSection: React.FC<{ lang: keyof typeof ui }> = ({ lang }) => {
@@ -59,6 +59,20 @@ const ContactSection: React.FC<{ lang: keyof typeof ui }> = ({ lang }) => {
 			y: 0,
 			transition: { duration: 0.6 },
 		},
+	}
+
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+
+		toast.success("Message sent", {
+			duration: 5000,
+		})
+
+		formData.name = ""
+		formData.email = ""
+		formData.phone = ""
+		formData.subject = ""
+		formData.message = ""
 	}
 
 	return (
@@ -150,7 +164,8 @@ const ContactSection: React.FC<{ lang: keyof typeof ui }> = ({ lang }) => {
 							<Button
 								type="submit"
 								disabled={loading}
-								className="bg-asm-blue hover:bg-asm-blue/90 w-full sm:w-auto"
+								className="bg-asm-blue hover:bg-asm-blue/90 w-full text-white sm:w-auto"
+								onClick={handleClick}
 							>
 								{loading ? "Enviando..." : t("contact.form.submit")}
 							</Button>

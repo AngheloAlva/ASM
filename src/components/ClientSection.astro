@@ -60,3 +60,15 @@ const clients = [
 		</div>
 	</div>
 </section>
+
+<script>
+	import { inView, animate } from "motion"
+
+	const items = document.querySelectorAll(".item")
+
+	items.forEach((el, i) => {
+		inView(el, (el) => {
+			animate(el, { opacity: 1, y: [10, 0] }, { duration: 0.2, delay: i * 0.05 })
+		})
+	})
+</script>
